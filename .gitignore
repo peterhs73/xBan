@@ -95,3 +95,8 @@ ENV/
 env.bak/
 venv.bak/
 
+# Mac
+.DS_Store
+
+# Visual Studio
+.vscode
