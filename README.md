@@ -1,4 +1,4 @@
 # xBan
 Personal Kanban
 
-run with `python xBan/xBan.py`
+run with `python xBan.py`
