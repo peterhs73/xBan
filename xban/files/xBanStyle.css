@@ -1,119 +1,65 @@
-QTextEdit
-{
-	font-family: "Arial";
-	font-weight: bold;
-}
-QMenu {
-	border-radius: 15px;
-}
-QMenuBar {
-    margin: 0px 10px 0px 10px;
-}
-QMenu::item:selected {
-    background-color:#b1c3e0;
-    color:white;
-}
+
 QWidget
 {
     border-style: none;
     background-color:white;
 }
+QWidget::SubBoard
+{
+    border: 2px solid black;
+}
 QPushButton
 {
     color: #b5b3b3;
     background-color: white;
-    border-width: 1px;
-    border-color: #b5b3b3;
-    border-style: solid;
-    padding: 5px;
-    border-radius: 4px;
-    font-size: 18px;
+    border: 1px #b5b3b3 solid;
+    border-radius: 5px;
+    font-size: 20px;
     outline: none;
 }
 QPushButton:hover {
-    border: 1px solid #3d8ec9;
-    color: #3d8ec9;
+    border: 1px solid black;
+    color: black;
 }
 QPushButton:pressed
 {
-    border: 1px solid #3d8ec9;
-    color: #3d8ec9;
+    border: 1px solid black;
+    color: black;
 }
-QScrollBar:vertical {
- border-radius: 5px;
- background: #cccccc;
- width: 5px;
+QPushButton:!pressed
+{
+    border: 1px solid #b5b3b3;
+    color: #b5b3b3;
 }
-QScrollBar::handle:vertical {
- background: #919191;
- min-height: 0px;
- border-radius: 5px;
-}
-QScrollBar::add-line:vertical {
- border: none;
- background: none;
-}
-QScrollBar::sub-line:vertical {
- border: none;
- background: none;
-}
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
- border: none;
- background: none;
+QListWidget
+{
+ border : white;
+ background : white;
+ outline: 0px;
 }
 
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
- background: none;
-}
-
-QScrollBar:horizontal {
- border-radius: 5px;
- background: #cccccc;
- height:5px;
-}
-QScrollBar::handle:horizontal {
- background: #919191;
- min-height: 0px;
- border-radius: 5px;
-}
-QScrollBar::add-line:horizontal {
- border: none;
- background: none;
-}
-QScrollBar::sub-line:horizontal {
- border: none;
- background: none;
-}
-QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
- border: none;
- background: none;
-}
-
-QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
- background: none;
-}
-
-QStatusBar {
-    background: #e0e0e0;
-    color:#494949;
+QTextEdit
+{
+    border: white;
+    font-family: "Helvetica";
+    background-color: white; 
 }
 
 QMessageBox QPushButton {
     font-size: 12px;
 }
 
-QMainWindow QMenuBar::item {
-    border: none;
-    padding: 3px 5px 3px 5px;
+QMenu::item:selected {
+    background-color:#7A99CA;
+    color:white;
+    border-radius: 5px;
+    padding: 5px 10px 8px 10px;
 }
 
-QMainWindow QMenuBar::item:selected {
-    border-bottom: 2px solid #3d8ec9;
+QMenu {
+    border-radius: 5px;
 }
-
-QMainWindow QMenuBar::item:pressed {
-    background-color: #3d8ec9;
-    color: white;
+QMenu::item {
+    padding: 5px 10px 8px 10px;
 }
-
 

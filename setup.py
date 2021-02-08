@@ -1,45 +1,29 @@
-from setuptools import setup
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-APP_NAME = "xBan"
 
-APP = ['xBan.py']
-DATA_FILES = [('', ['xban.qss', 'xample.xban'])]
-OPTIONS = {
-    'argv_emulation': True,
-    # 'iconfile': '',
-    'includes': ["sip", "PyQt5.QtGui", "PyQt5.QtCore", "PyQt5.QtWidgets"],
-    'excludes': [
-        'PyQt5.QtDesigner',
-        'PyQt5.QtNetwork',
-        'PyQt5.QtOpenGL',
-        'PyQt5.QtScript',
-        'PyQt5.QtSql',
-        'PyQt5.QtTest',
-        'PyQt5.QtWebKit',
-        'PyQt5.QtXml',
-        'PyQt5.phonon',
-    ],
-    'plist': {
-        'CFBundleName': APP_NAME,
-        'CFBundleDisplayName': APP_NAME,
-        'CFBundleGetInfoString': "Convert from DOI to .bib",
-        'CFBundleVersion': "0.1.0",
-        'CFBundleShortVersionString': "0.1.0",
-        'NSHumanReadableCopyright': u"Copyright © 2018, Peter Sun, All Rights Reserved",
-    },
-}
+import setuptools
 
-setup(
-    app=APP,
-    data_files=DATA_FILES,
-    options={'py2app': OPTIONS},
-    setup_requires=['py2app'],
-    ## General setup info
-    name="xBan",
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name="refparse",  # Replace with your own username
     version="0.1.0",
-    license='MIT',
     author="Peter Sun",
-    author_email='peterhs73@outlook.com',
-    url='https://github.com/peterhs73/xBan',
-    description="Personal Kanban",
+    author_email="peterhs73@outlook.com",
+    description="Convert yaml file into KanBan work flow",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/pterhs73/xBan",
+    packages=setuptools.find_packages(),
+    license="MIT",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    install_requires=["pyyaml>=5.0", "Click>=7.0", "PySide2==5.12.1"],
+    entry_points={"console_scripts": ["xban=xban.xban:cli"]},
+    python_requires=">=3.6",
 )
