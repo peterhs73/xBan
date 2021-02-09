@@ -15,8 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix the issue that the tile item is cropped
 - Fix the scrollbar color and padding
-- Fix the wrong package name on `setup.py` (smh)
 - Fix the setup files to include non python file in installation
+- Fix the wrong package name on `setup.py` (smh)
+- Fix package namespace issue in `setup.py`
 
 ### Added
 - Add more information on readme
