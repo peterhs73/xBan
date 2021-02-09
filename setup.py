@@ -16,15 +16,18 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/pterhs73/xBan",
-    packages=['xban'],
+    packages=["xban"],
     license="MIT",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["pyyaml>=5.0", "Click>=7.0", "PySide2==5.12.1"],
-    entry_points={"console_scripts": ["xban=xban.xban:cli"]},
+    install_requires=["pyyaml>=5.0", "Click", "PySide2==5.12.1"],
+    entry_points="""
+        [console_scripts]
+        xban=xban.xban:cli
+    """,
     python_requires=">=3.6",
-    include_package_data=True
+    include_package_data=True,
 )
