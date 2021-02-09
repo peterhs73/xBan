@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from PySide2.QtCore import Qt, Signal, QMimeData
-from PySide2.QtGui import QIcon, QTextCursor, QDrag, QKeySequence
+from PySide2.QtCore import Qt, Signal, QMimeData, QSize
+from PySide2.QtGui import (
+    QIcon,
+    QTextCursor,
+    QDrag,
+    QKeySequence,
+    QColor,
+)
 from PySide2.QtWidgets import (
     QStyleFactory,
     QPushButton,
@@ -18,7 +24,10 @@ from PySide2.QtWidgets import (
     QMenu,
     QMessageBox,
     QShortcut,
-    QGraphicsDropShadowEffect
+    QGraphicsDropShadowEffect,
+    QFrame,
+    QStyledItemDelegate,
+    QScrollBar,
 )
 
 import sys
@@ -36,7 +45,6 @@ class BanBoard(QWidget):
 
     def __init__(self, filepath, file_config, parent=None):
         super().__init__(parent)
-        self.setStyleSheet("QWidget {background: white;}")
 
         self.filepath = filepath
         self.file_config = file_config
@@ -56,17 +64,19 @@ class BanBoard(QWidget):
         config, content = file_config
 
         mainlayout = QVBoxLayout()
-        mainlayout.setContentsMargins(30, 30, 30, 30)
+        mainlayout.setContentsMargins(20, 20, 20, 20)
 
         title_edit = QLineEdit(config["xban_config"]["title"], self)
-        title_edit.setPlaceholderText("Enter title here...")
+        title_edit.setPlaceholderText("Enter title here ...")
         title_edit.setStyleSheet(
             'font-family: "Courier New"; font-size: 24px; font-weight: bold;'
         )
 
         info_edit = NoteTile(config["xban_config"]["description"], self)
-        info_edit.setPlaceholderText("Enter description here...")
-        info_edit.setStyleSheet("font-size: 14px;")
+        info_edit.setPlaceholderText("Enter description here ...")
+        info_edit.setStyleSheet(
+            "font-size: 14px; background-color:transparent;"
+        )
 
         mainlayout.addWidget(title_edit)
         mainlayout.addWidget(info_edit)
@@ -83,11 +93,15 @@ class BanBoard(QWidget):
                 partial(self.delete_board, board=subboard)
             )
 
-        add_btn = QPushButton("+")
-
+        add_btn = QPushButton(
+            "+", clicked=self.insert_board, toolTip="add board"
+        )
+        shadow = QGraphicsDropShadowEffect(
+            self, blurRadius=10, offset=5, color=QColor("lightgrey")
+        )
+        add_btn.setGraphicsEffect(shadow)
         add_btn.setFixedWidth(30)
-        add_btn.setStyleSheet("border-style: none")
-        add_btn.clicked.connect(self.insert_board)
+        add_btn.setStyleSheet("border-style: none ")
         sublayout.addWidget(add_btn)
 
         save_shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
@@ -183,6 +197,7 @@ class BanBoard(QWidget):
 
         xban_content = self.parse_board()
         save_yaml(self.filepath, xban_content)
+        gui_logger.info(f"Saved to {self.filepath}")
 
     def closeEvent(self, event):
         """Auto save when close"""
@@ -213,6 +228,9 @@ class BanListWidget(QListWidget):
         self.setWordWrap(True)
         self.setAcceptDrops(True)
         self.setEditTriggers(QAbstractItemView.DoubleClicked)
+        self.setTextElideMode(Qt.ElideNone)
+        self.setItemDelegate(TileDelegate())
+        self.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel)
 
     def dropEvent(self, event):
         """Drop and drag event
@@ -227,6 +245,7 @@ class BanListWidget(QListWidget):
             board = event.source()
             board.takeItem(board.currentRow())
             event.setDropAction(Qt.MoveAction)
+
         event.setDropAction(Qt.MoveAction)
         super().dropEvent(event)
 
@@ -251,11 +270,11 @@ class BanListWidget(QListWidget):
         :param text str: content of the item
         """
         item = QListWidgetItem(text)
-        item.setFlags(item.flags() | Qt.ItemIsEditable)
+        item.setFlags(item.flags() | Qt.ItemIsEditable | Qt.ItemIsSelectable)
         self.addItem(item)
 
 
-class SubBoard(QWidget):
+class SubBoard(QFrame):
     """The subboard of xBan
 
     The board contains the individual "blocks" of the board
@@ -267,12 +286,22 @@ class SubBoard(QWidget):
         super().__init__(parent)
         title_name, tile_items = tile_contents
         self.color = color
+        self.setStyleSheet(
+            "QFrame{border: 0.5px solid #dddddd; "
+            "border-radius: 8px; background-color:white;}"
+        )
+        shadow = QGraphicsDropShadowEffect(
+            self, blurRadius=10, offset=5, color=QColor("lightgrey")
+        )
+        self.setGraphicsEffect(shadow)
 
-        # shadow.setEnabled(True)
         board = QVBoxLayout()
+        board.setMargin(20)
         tile_title = NoteTile(title_name, self)
-        tile_title.setPlaceholderText("Title here...")
-        tile_title.setStyleSheet("font-size: 18px; font-weight: bold;")
+        tile_title.setPlaceholderText("Title here ...")
+        tile_title.setStyleSheet(
+            "border-style: none; font-size: 18px; font-weight: bold;"
+        )
         board.addWidget(tile_title)
 
         listwidget = BanListWidget(self)
@@ -283,14 +312,23 @@ class SubBoard(QWidget):
         board.addWidget(listwidget)
 
         btn_layout = QHBoxLayout()
-        add_btn = QPushButton("+", clicked=self.add_listitem)
-        del_btn = QPushButton("-", clicked=self.del_listitem)
-        context_btn = QPushButton("≡")
+        add_btn = QPushButton(
+            "+", clicked=self.add_listitem, toolTip="add tile"
+        )
+        del_btn = QPushButton(
+            "-", clicked=self.del_listitem, toolTip="delete tile"
+        )
+        context_btn = QPushButton("\u2261", toolTip="change color")
         context_btn.setMenu(self.context_menu())
-
+        # context_btn.setStyleSheet('QPushButton:hover {color:#b5b3b3;} QPushButton::menu-indicator:hover {color:black;}')
+        destory_btn = QPushButton(
+            "\u00D7", clicked=self.delete_board, toolTip="delete board"
+        )
+        destory_btn.setStyleSheet("QPushButton:hover {color: red;}")
         btn_layout.addWidget(add_btn)
         btn_layout.addWidget(del_btn)
         btn_layout.addWidget(context_btn)
+        btn_layout.addWidget(destory_btn)
         board.addLayout(btn_layout)
 
         self.setLayout(board)
@@ -319,6 +357,7 @@ class SubBoard(QWidget):
 
     def del_listitem(self):
         """Delete entry for listwidget"""
+
         listwidget = self.layout().itemAt(1).widget()
         for item in listwidget.selectedItems():
             listwidget.del_item(item)
@@ -352,20 +391,19 @@ class SubBoard(QWidget):
         """
 
         menu = QMenu(self)
-        menu.setWindowFlags(menu.windowFlags() | Qt.NoDropShadowWindowHint)
-        color_menu = menu.addMenu("Tile Color")
-        color_menu.setWindowFlags(
-            color_menu.windowFlags() | Qt.NoDropShadowWindowHint
-        )
+        # menu.setWindowFlags(menu.windowFlags() | Qt.NoDropShadowWindowHint)
+        # color_menu = menu.addMenu("Tile Color")
+        # color_menu.setWindowFlags(
+        #     color_menu.windowFlags() | Qt.NoDropShadowWindowHint
+        # )
 
         for color in TILE_STYLE:
-            color_action = color_menu.addAction(color)
+            color_action = menu.addAction(color)
             color_action.triggered.connect(
                 partial(self.color_change, color=color)
             )
-
-        del_action = menu.addAction("Delete")
-        del_action.triggered.connect(self.delete_board)
+        # del_action = menu.addAction("Delete")
+        # del_action.triggered.connect(self.delete_board)
 
         return menu
 
@@ -388,12 +426,68 @@ class SubBoard(QWidget):
             self.delboardSig.emit()
 
 
+class TileDelegate(QStyledItemDelegate):
+    """Delegate the list widget tile editor to NoteTile
+    And adjust the size properly. This is used in listwidgetview
+    """
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def createEditor(self, parent, option, index):
+        """Change the default editor to NoteTile"""
+        editor = TileEdit(parent=parent)
+        editor.tile_finishSig.connect(self.finish_edit)
+
+        return editor
+
+    def setEditorData(self, editor, index):
+        """Sets the editor data to the correct value"""
+        editor.setText(index.data())
+        editor.moveCursor(QTextCursor.End)
+
+    def setModelData(self, editor, model, index):
+        """Get data from the editor"""
+        model.setData(index, editor.toPlainText())
+
+    def sizeHint(self, option, index):
+        """Change the sizehint this is to prevent horizontal crop
+
+        Adjust the width slightly less than the default value
+        """
+        size = super().sizeHint(option, index)
+        return QSize(size.width() - 20, size.height() + 10)
+
+    def finish_edit(self):
+        """Emit signal when editing is finished
+
+        The signal tile_finishSig is triggered by QTextEdit
+        out of focus event
+        """
+        editor = self.sender()
+        self.commitData.emit(editor)
+        self.closeEditor.emit(editor)
+
+
+class TileEdit(QTextEdit):
+    tile_finishSig = Signal()
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setVerticalScrollBar(QScrollBar())
+
+    def focusOutEvent(self, event):
+        self.tile_finishSig.emit()
+        super().focusOutEvent(event)
+
+
 class NoteTile(QTextEdit):
     """Create individual note tiles"""
 
     tile_resizeSig = Signal()
+    tile_finishSig = Signal()
 
-    def __init__(self, text, parent=None):
+    def __init__(self, text="", parent=None):
         super().__init__(parent)
 
         self.setPlainText(text)
@@ -403,6 +497,7 @@ class NoteTile(QTextEdit):
         self.setAcceptRichText(False)
         self.setContextMenuPolicy(Qt.PreventContextMenu)
         self.textChanged.connect(self._resize)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
     def _resize(self):
         """Resize the height based on the text document size
@@ -411,6 +506,10 @@ class NoteTile(QTextEdit):
         height so no scrolling will be displayed
         """
         self.setFixedHeight(self.document().size().height() * 1.1)
+
+    def focusOutEvent(self, event):
+        self.tile_finishSig.emit()
+        super().focusOutEvent(event)
 
     def resizeEvent(self, event):
         """Overwrite the resize event"""
@@ -432,5 +531,12 @@ def main_app(base_path, file, file_config):
     app.setWindowIcon(QIcon(os.path.join(base_path, "xBanUI.png")))
     xbanwindow = BanBoard(file, file_config)
     xbanwindow.setStyleSheet(style)
+    # move screen to center
+    screen = app.desktop().screenGeometry()
+    xbanwindow.move(
+        (screen.width() - xbanwindow.width()) / 2,
+        (screen.height() - xbanwindow.height()) / 2,
+    )
+
     app.setStyle("Fusion")
     sys.exit(app.exec_())

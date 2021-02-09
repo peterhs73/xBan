@@ -53,7 +53,9 @@ def create(filepath):
     """
     file_dir, filename = os.path.split(filepath)
     if os.path.isfile(filepath):
-        cli_logger.error(f"{filepath} already exist, use xban render")
+        cli_logger.error(
+            f"{filepath} already exist, use command: xban render {filepath}"
+        )
     elif not file_dir:
         cli_logger.error(f"directory {file_dir} does not exist")
     else:

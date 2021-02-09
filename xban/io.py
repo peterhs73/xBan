@@ -54,7 +54,6 @@ def process_yaml(filepath):
     if the file cannot be opened, an error will be logged
     the detailed file processing see xban_content()
     """
-    print("fisss", filepath)
     try:
         with open(filepath, "r") as f:
             yaml_stream = list(yaml.load_all(f, Loader=yaml.SafeLoader))

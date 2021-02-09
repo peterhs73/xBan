@@ -12,27 +12,39 @@ COLOR_DICT = {
 }
 
 WIDGET_FORMAT = """
-QListWidget QWidget {{
-  color: {color};
-  background : {bgcolor};
-  font-family: "Helvetica";
+QListWidget {{
+  border-style: none;
+  outline:none;
 }}
-QListView::item
-{{
+QListView::item {{
   background-color: {bgcolor};
   color: {color};
-  font-size: 15px; font-weight: bold; padding: 6px;
+  font-size: 15px; font-weight: bold;
   border: 1px solid {bcolor};
   border-radius: 4px;
   margin-top: 3px;
   margin-bottom: 3px;
+  margin-right: 3px;
+  padding: 6px 10px 6px 10px;
 }}
-QListView::item:selected
-{{
+QListView QTextEdit {{
   color: {color};
-  border : 2px solid {color};
+  background : {bgcolor};
+  border-style: none;
+}}
+QListView::item:selected {{
+  color: {color};
+  border: 2px solid {color};
+}}
+QListView QTextEdit QScrollBar:vertical {{
+  color: {bgcolor};
+  background: {bgcolor};
+}}
+QListView QTextEdit QScrollBar::handle:vertical {{
+  background:{color};
 }}
 """
+
 
 # The following code is for widget background and currently that is not added
 # BG_FORMAT = """background-image: url('{}') 100px 100px stretch stretch;

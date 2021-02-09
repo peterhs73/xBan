@@ -8,11 +8,11 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="refparse",  # Replace with your own username
-    version="0.1.0",
+    name="xBan",
+    version="0.2.0",
     author="Peter Sun",
     author_email="peterhs73@outlook.com",
-    description="Convert yaml file into KanBan work flow",
+    description="Offline personal kanban work-flow",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/pterhs73/xBan",
@@ -26,4 +26,5 @@ setuptools.setup(
     install_requires=["pyyaml>=5.0", "Click>=7.0", "PySide2==5.12.1"],
     entry_points={"console_scripts": ["xban=xban.xban:cli"]},
     python_requires=">=3.6",
+    include_package_data=True
 )
