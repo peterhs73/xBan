@@ -2,7 +2,7 @@
 
 xBan offers completely offline kanban work-flow. It allows edits, drag and drop tiles and boards, and saves as yaml format. All operations are done locally. xBan can also convert valid dictionary formatted yaml file into a kanban board.
 
-![xBan GUI](https://media.giphy.com/media/vm1CAIEJ6YIazJ221o/giphy.gif)
+![xBan GUI](https://media.giphy.com/media/Saafs036dyNYKJ6B8R/giphy.gif)
 
 Some of the color schemes are inspired by Quip.
 
