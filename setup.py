@@ -28,6 +28,6 @@ setuptools.setup(
         [console_scripts]
         xban=xban.xban:cli
     """,
-    python_requires=">=3.6",
+    python_requires=">=3.6, <3.8",
     include_package_data=True,
 )
