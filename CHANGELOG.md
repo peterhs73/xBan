@@ -12,19 +12,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add brown color
 
 ### Fixed
-- Fix the menu button hovering issue: when the button is pressed, the unhover event is not triggered,
-  the hovered color persists after button button clicks. This is resolved by modifying the button
-  press event to change the background color in the button behavior. I think this is a bug in the qt end.
+- Fix the menu button hovering issue: when the button is pressed, the unhover event is not triggered.
+  The hovered color persists after the button clicks. This is resolved by modifying the button press 
+  event to change the background color in the button behavior. I think this is a bug in the qt end.
   The hover behavior is still defined in css style file since it is easier to identify different buttons.
 - Set a minimum width of the button.
-- Fix issue where multiple tiles is selected across the boards
-- Fix issue where after drop item no longer editable
+- Fix issue where multiple tiles are selected across the boards
+- Fix issue where after dropping item no longer editable
 
 ### Changed
 - Use class object name for better child style sheet settings
 - Separate GUI to the mainwindow session and the board session for better readability
-- Simply color pull down menu
-- Add background color when press btn and consistent across the application
+- Simply color pull-down menu
+- Add background color when pressing btn and consistent across the application
 - Change color menu to match the context button size
 - Change color menu to reflect the proper color of the option
 
@@ -32,21 +32,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Change command line message when files already exist
 - Change QListWidget editor to QTextEditor using delegates
-- Change default background color
-- Change the board buttons, delete button is now separate
+- Change the default background-color
+- Change the board buttons, the delete button is now separate
 
 ### Fixed
 - Fix the issue that the tile item is cropped
 - Fix the scrollbar color and padding
-- Fix the setup files to include non python file in installation
+- Fix the setup files to include non-python file in the installation
 - Fix the wrong package name on `setup.py` (smh)
 - Fix package namespace issue in `setup.py`
 
 ### Added
-- Add more information on readme
+- Add more information on the README
 - Add save logging
 - Add shadow to tile board
-- Add button tool tip
+- Add button tooltip
 - Add `MANIFEST.in` for packaging
 
 ## [0.1.0] - 2021-02-07
