@@ -8,9 +8,9 @@ Some of the color schemes are inspired by Quip.
 
 ## Quickstart
 
-To install xBan directly from github release (version 0.2.0):
+To install xBan directly from github release (version 0.2.1):
     
-    python -m pip install git+https://github.com/peterhs73/xBan.git@v0.2.0#egg=xban
+    python -m pip install git+https://github.com/peterhs73/xBan.git@v0.2.1#egg=xban
 
 To render xban file:
 
