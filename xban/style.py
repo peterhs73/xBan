@@ -1,21 +1,22 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """The script outlines the style sheet for tile colors"""
 
 
 COLOR_DICT = {
     "black": {"bgcolor": "#D9D7D7", "color": "black", "bcolor": "#414141"},
+    "teal": {"bgcolor": "#c2eaf0", "color": "#426A70", "bcolor": "#6b8485"},
+    "blue": {"bgcolor": "#eaf8fe", "color": "#29ade8", "bcolor": "#c6ebfb"},
+    "green": {"bgcolor": "#bafce2", "color": "#00c678", "bcolor": "#2ce89e"},
     "purple": {"bgcolor": "#fbdbff", "color": "#d30bea", "bcolor": "#fb87ff"},
     "red": {"bgcolor": "#ffecee", "color": "#fe3a51", "bcolor": "#fec9d0"},
     "yellow": {"bgcolor": "#fef8e7", "color": "#ff9900", "bcolor": "#f2ce98"},
-    "blue": {"bgcolor": "#eaf8fe", "color": "#29ade8", "bcolor": "#c6ebfb"},
-    "green": {"bgcolor": "#bafce2", "color": "#00c678", "bcolor": "#2ce89e"},
-    "teal": {"bgcolor": "#c2eaf0", "color": "#426A70", "bcolor": "#6b8485"},
+    "brown": {"bgcolor": "#e3c099", "color": "#795644", "bcolor": "#a1785c"},
 }
 
+
 WIDGET_FORMAT = """
-QListWidget {{
-  border-style: none;
-  outline:none;
-}}
 QListView::item {{
   background-color: {bgcolor};
   color: {color};
@@ -45,13 +46,32 @@ QListView QTextEdit QScrollBar::handle:vertical {{
 }}
 """
 
+MENU_FORMAT = """
+QLabel {{
+  background:{bgcolor};
+  color:{color};
+  border: 1px solid {bcolor};
+  padding: 5 10 5 10px;
+  margin: 3 5 3 5px;
+  border-radius: 2px;
+}}
+QLabel:hover {{
+  background:#c2c2c2;
+}}
+"""
+
 
 # The following code is for widget background and currently that is not added
 # BG_FORMAT = """background-image: url('{}') 100px 100px stretch stretch;
 # background-repeat: no-repeat; background-position: center center;
 # """
 
+"""Tile style is the color style sheet for the tiles and menu style is
+the color style sheet for the drop down menu"""
+
 TILE_STYLE = {}
+MENU_STYLE = {}
 
 for color_name, setting in COLOR_DICT.items():
     TILE_STYLE[color_name] = WIDGET_FORMAT.format(**setting)
+    MENU_STYLE[color_name] = MENU_FORMAT.format(**setting)

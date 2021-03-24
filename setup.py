@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="xBan",
-    version="0.2.0",
+    version="0.2.1",
     author="Peter Sun",
     author_email="peterhs73@outlook.com",
     description="Offline personal kanban work-flow",
@@ -23,7 +23,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["pyyaml>=5.0", "Click", "PySide2==5.12.1"],
+    install_requires=["pyyaml>=5.0", "Click", "PySide2==5.13.0"],
     entry_points="""
         [console_scripts]
         xban=xban.xban:cli

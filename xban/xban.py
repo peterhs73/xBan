@@ -4,7 +4,7 @@
 import os
 import click
 import logging
-from xban.gui import main_app
+from xban.mainwindow import main_app
 from xban.io import process_yaml
 
 

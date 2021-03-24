@@ -26,7 +26,11 @@ def xban_content(filepath, yaml_stream):
     """
     filename = os.path.basename(os.path.splitext(filepath)[0])
     xban_config_default = {
-        "xban_config": {"title": filename, "description": "", "board_color": [],}
+        "xban_config": {
+            "title": filename,
+            "description": "",
+            "board_color": [],
+        }
     }
     if yaml_stream:
         if not all(isinstance(page, dict) for page in yaml_stream):

@@ -1,26 +1,23 @@
+/*The styles have several levels
+application - style across applications
+window - style in mainwindow
+board - style in individual board
+subboard - style within the listwidget frame
+(note most of the subboard style is added in style.py)
+*/
+
+/*application styles
+some child widget overrides this*/
 
 QWidget {
     background-color: #ebebeb;
 }
+
 QToolTip {
     background-color: #ebebeb;
     border-style: none;
     color: black;
     font: 12px;
-}
-QPushButton {
-    color: #b5b3b3;
-    background-color: white;
-    border-radius: 5px;
-    font-size: 20px;
-    outline: none;
-}
-QPushButton:hover {
-    color: black;
-}
-QPushButton::menu-indicator:pressed, QPushButton::menu-indicator:open {
-    color: #b5b3b3;
-    top: 2px; left: 2px; /* shift the arrow by 2 px */
 }
 QLineEdit {
     border-style: none;
@@ -29,27 +26,96 @@ QTextEdit {
     border: white;
     background-color: white; 
 }
-QMessageBox {
-    background: white;
-    border-style: none;
-}
-QMessageBox QPushButton {
-    font-size: 14px;
-    border-style: none;
-}
-
-
-QMenu::item:selected {
-    background-color:#7A99CA;
-    color:white;
+QPushButton#appBtn_save {
+    /*font-family: "Monospace"; */
     border-radius: 5px;
-    padding: 5px 10px 8px 10px;
+    outline: none;
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 4px;
+    min-width: 40px;
+    font-weight: bold;
 }
+
+/*window styles*/
+QPushButton#windowBtn_add{
+    border-radius: 5px;
+    font-size: 20px;
+    outline: none;
+    padding: 20px 5px 20px 5px;
+    min-width: 40px;
+}
+
+QLineEdit#windowEdit_title {
+    font-family: "Courier New"; 
+    font-size: 24px; 
+    font-weight: bold;
+}
+QTextEdit#windowEdit_text {
+    font-size: 14px; 
+    background-color:transparent;
+}
+
+/*board styles*/
+QPushButton[objectName^="boardBtn"]{
+    border-radius: 5px;
+    font-size: 20px;
+    outline: none;
+    min-width: 40px;
+}
+
+QPushButton#boardBtn_color::menu-indicator {
+    position: relative;
+    top: -4px; left: -4px;
+}
+
+QPushButton#boardBtn_color::menu-indicator:pressed, QPushButton::menu-indicator:open {
+    position: relative;
+    top: 0px;
+}
+
+QTextEdit#boardEdit {
+    border-style: none; 
+    font-size: 18px; 
+    font-weight: bold;
+}
+
 QMenu {
-    border-radius: 5px;
+    background: white;
+    border-radius: 4px;
 }
-QMenu::item {
-    padding: 5px 10px 8px 10px;
+
+/*subboard style*/
+
+QFrame#subBoardFrame {
+    border: 0.5px solid #dddddd;
+    border-radius: 8px;
+    background-color:white;
+}
+
+QListWidget {
+    background-color:white;
+    border-style: none;
+    outline:none;
+}
+
+/*message box button style*/
+
+QMessageBox {
+    background-color: white;
+    border-style: none;
+    color: white;
+}
+QMessageBox QLabel {
+    background: white;
+}
+
+QMessageBox QPushButton {
+    border-style: none;
+    color: #b5b3b3;
+    background-color: white;
+}
+QMessageBox QPushButton:hover {
+    color: black;
 }
 
 /*scrollbar customization*/
