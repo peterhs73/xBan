@@ -5,10 +5,10 @@
 """This script host some customized utilities"""
 
 
-from PySide2.QtWidgets import QPushButton
-from PySide2.QtCore import QEvent
+from PySide6.QtWidgets import QPushButton
+from PySide6.QtCore import QEvent
 import logging
-from PySide2.QtCore import Signal, QThread, QSize
+from PySide6.QtCore import Signal, QThread, QSize
 
 
 class BanButton(QPushButton):

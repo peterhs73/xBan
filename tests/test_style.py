@@ -8,10 +8,6 @@ from xban.style import TILE_STYLE
 
 
 BLACK_SYTLE = """
-QListWidget {
-  border-style: none;
-  outline:none;
-}
 QListView::item {
   background-color: #D9D7D7;
   color: black;

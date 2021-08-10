@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from PySide2.QtCore import Qt, Signal, QMimeData, QSize
-from PySide2.QtGui import QTextCursor, QDrag, QKeySequence, QColor
-from PySide2.QtWidgets import (
+from PySide6.QtCore import Qt, Signal, QMimeData, QSize
+from PySide6.QtGui import QTextCursor, QDrag, QKeySequence, QColor
+from PySide6.QtWidgets import (
     QWidget,
     QTextEdit,
     QHBoxLayout,
@@ -74,7 +74,8 @@ class BanBoard(QWidget):
 
         self.sublayout = QHBoxLayout()
         color = config["xban_config"]["board_color"]
-        self.sublayout.setMargin(10)
+        self.sublayout.setContentsMargins(10, 10, 10, 10)
+        
         self.sublayout.setSpacing(20)
 
         add_btn = BanButton(
@@ -224,7 +225,7 @@ class SubBoard(QFrame):
         self.setGraphicsEffect(shadow)
 
         board = QVBoxLayout()
-        board.setMargin(20)
+        board.setContentsMargins(20, 20, 20, 20)
         tile_title = NoteTile(title_name, "boardEdit", self)
         tile_title.setPlaceholderText("Title here ...")
 
