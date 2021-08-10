@@ -14,12 +14,20 @@ cli_logger = logging.getLogger("xban-cli")
 BASE_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "files")
 
 
-@click.group()
-@click.option("-d/ ", "--debug/--no-debug", default=False, help="Toggle debug mode")
-def cli(debug):
-    """Command-line interface
+"""The command line interface, the handler is called from setup.py
+"""
 
-    FILE should be the path or a valid yaml file
+@click.command()
+@click.option(
+    "-d/ ", "--debug", is_flag=True, default=False, help="Toggle debug mode"
+)
+@click.argument("filepath", type=click.Path(resolve_path=True))
+def cli(debug, filepath):
+
+    """FILEPATH should be a valid filepath with correct extension
+
+    xBan renders if the input file is a valid format,
+    or asks to create a new file if does not exist
     """
 
     root_logger = logging.getLogger()
@@ -29,41 +37,24 @@ def cli(debug):
     else:
         root_logger.setLevel(logging.INFO)
 
+    # check filepath
 
-@click.command()
-@click.argument("filepath", type=click.Path(exists=True, resolve_path=True))
-def render(filepath):
-    """Render existing files
-
-    FILEPATH should be the path or a valid yaml file
-    """
-
-    file_config = process_yaml(filepath)
-
-    if file_config:
-        main_app(BASE_PATH, filepath, file_config)
-
-
-@click.command()
-@click.argument("filepath", type=click.Path(resolve_path=True))
-def create(filepath):
-    """Create new file
-
-    FILEPATH should a valid filepath with correct extension
-    """
     file_dir, filename = os.path.split(filepath)
     if os.path.isfile(filepath):
-        cli_logger.error(
-            f"{filepath} already exist, use command: xban render {filepath}"
-        )
+        file_config = process_yaml(filepath)
+
+        if file_config:
+            main_app(BASE_PATH, filepath, file_config)
+        else:
+            cli_logger.error(f'{file_dir} is not a valid ymal file')
+
     elif not file_dir:
         cli_logger.error(f"directory {file_dir} does not exist")
-    else:
+    
+    # create new file if does not exist
+    elif click.confirm(f'{filepath} does not exist, create?'):
+
         with open(filepath, "w+"):
             pass
         file_config = process_yaml(filepath)
         main_app(BASE_PATH, filepath, file_config)
-
-
-cli.add_command(render)
-cli.add_command(create)

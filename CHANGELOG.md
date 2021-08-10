@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.0] - 2021-08-10
 ### Changed
 - Change dependency from Qt5 to Qt6 (require PySide6)
+- Simplify command line interface, the command should be `xban FILEPATH`
 
 ### Fixed
 - Fix incorrect test file
@@ -30,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Use class object name for better child style sheet settings
 - Separate GUI to the mainwindow session and the board session for better readability
-- Simply color pull-down menu
+- Simplify color pull-down menu
 - Add background color when pressing btn and consistent across the application
 - Change color menu to match the context button size
 - Change color menu to reflect the proper color of the option
