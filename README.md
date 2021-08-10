@@ -12,13 +12,13 @@ To install xBan directly from github release (version 0.3.0):
     
     python -m pip install git+https://github.com/peterhs73/xBan.git@v0.3.0#egg=xban
 
-To render xban file:
+To create/render xban (or valid yaml) file:
 
-	xban render file_path
+	xban FILEPATH
 
-To create a xban compatible file (and open the file):
-
-	xban create new_file
+To turn on debug mode:
+	
+	xban -d FIELPATH 
 
 ### Development
 
