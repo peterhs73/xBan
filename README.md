@@ -1,4 +1,4 @@
-# xBan project [![Current Version](https://img.shields.io/badge/version-0.2.1-green.svg)](https://github.com/peterhs73/xBan/releases) [![](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/) [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
+# xBan project [![Current Version](https://img.shields.io/badge/version-0.3.0-green.svg)](https://github.com/peterhs73/xBan/releases) [![](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/) [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
 
 xBan offers a completely offline kanban work-flow. It allows edits, drag and drop tiles and boards, and saves as yaml format. All operations are done locally. xBan can also convert valid dictionary formatted yaml file into a kanban board.
 
